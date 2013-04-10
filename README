@@ -1,0 +1,30 @@
+324CB_AVRAM_Marius
+
+Tema4 
+
+Am implementat interfata MyHashMap intocmai cum cere cerinta, fara a modifica
+nimic din felul in care arata aceasta. Cele  doua clase MyEntry si MyBucket 
+au fost reprezentate intern in MyHashMapImpl pentru ca nu este nevoie sa fie 
+folosit nicaieri altundeva. Toate metodele put, get, remove, size se comporta
+intocmai ca cele din HashMap (din Java).
+
+Student suprascrie hashCode() dupa algoritmul dat si metoda equals(Object o). 
+In timp ce clasa LazyStudent suprascrie hashCode() astfel incat returneaza 
+o constanta. 
+
+In urma testului de la punctul 2 rezulta urmatorul output: 
+---Test1---
+10000 de accesari ale unui MyHashMap de Student dureaza: 33ms
+---Test2---
+10000 de accesari ale unui MyHashMap de LazyStudent dureaza: 146ms
+
+Acest lucru se intampla deoarece in cazul lui LazyStudent toate instantele
+clasei au acelasi hashCode() si va rezulta acelasi cod de dispersie in tabela.
+Adica nr de Buckets folosite este egal cu 1 si in loc de o tabla de 
+dispersie va fi o singura lista MyBucket in care sunt introduse toate instantele.
+Pentru a cauta o cheie trebuie sa fie parcursa aceasi lista care e mult mai
+lunga decat daca in cauzul uni MyHashMap de Student care contine mai multe 
+liste mai mici si care pot fi parcurse mult mai repede. Pentru a gasi lista 
+potrivita in cazul unui MyHashMap de Student e nevoie doar sa obtinem 
+indicele de Bucket corespunzator cheii si apoi sa parcurgem lista MyBucket 
+pana cand se gaseste elementul cautat.
